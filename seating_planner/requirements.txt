@@ -1,0 +1,6 @@
+certifi==2019.6.16
+Django==2.2.1
+django-enumfield==1.5
+jsonfield==2.0.2
+pytz==2019.1
+sqlparse==0.3.0
