@@ -1,0 +1,20 @@
+{% extends "main.html" %}
+
+{% block content %}
+    {% for item in allocations %}
+        <h2>{{ item.name }}:</h2>
+        <div class="allocation">
+        {% for row in item.allocation %}
+            <p class="allocation-row">
+            {% for seat in row %}
+                {% if seat >= 0 %}
+                    <span class="seat taken_seat">Owner: <b>{{ seat }}</b></span>
+                {% else %}
+                    <span class="seat free_seat">Free</span>
+                {% endif %}
+            {% endfor %}
+            </p>
+        {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}

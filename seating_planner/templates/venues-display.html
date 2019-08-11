@@ -1,0 +1,34 @@
+{% extends "main.html" %}
+
+{% block content %}
+    {% if venues|length > 0 %}
+        <div id="venue-selection" class="list-group">
+            <form action="/allocs/" method="post">
+                <input type="hidden" id="selection" name="selection">
+                {% csrf_token %}
+                {% for venue in venues %}
+                    {% if venue.seats_num > 0 %}
+                        <button type="submit" data-selections="{{ venue.name }}"
+                                class="sbm-btn list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                            {{ venue.name }}
+                            <span class="badge badge-primary badge-pill">
+                                {{ venue.seats_num }} Allocations
+                            </span>
+                        </button>
+                    {% else %}
+                        <button disabled type="submit" data-selections="{{ venue.name }}"
+                                class="sbm-btn list-group-item d-flex justify-content-between align-items-center list-group-item-action">
+                            {{ venue.name }}
+                            <span class="badge badge-primary badge-pill">
+                                {{ venue.seats_num }} Allocations
+                            </span>
+                        </button>
+                    {% endif %}
+
+                {% endfor %}
+            </form>
+        </div>
+    {% else %}
+        <h3>Sorry no sections created yet :(</h3>
+    {% endif %}
+{% endblock %}

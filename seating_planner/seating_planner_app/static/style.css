@@ -1,0 +1,33 @@
+h1{
+    padding-top: 30px;
+}
+
+.title{
+    border-bottom: 3px solid black;
+}
+
+.seat{
+    border-radius: 10px;
+    padding: 5px 5px;
+    display: inline-block;
+    width: 55px;
+    overflow: auto;
+    text-align: center;
+}
+.taken_seat{
+    background-color: red;
+}
+
+.free_seat{
+    background-color: green;
+}
+
+.allocation{
+    margin: 15px 0;
+}
+
+.allocation-row{
+    margin: 10px 10px;
+    font-size: 12px;
+}
+
