@@ -18,6 +18,6 @@ class TestModels(TestCase):
         self.assertEquals(count, seats_count)
 
     def test_get_section_layout(self):
-        layout = self.section.get_layout()
+        layout = self.section.layout
         self.assertEquals(layout[0][0].seat_num, 1)
         self.assertEquals(layout[0][1].seat_num, 2)

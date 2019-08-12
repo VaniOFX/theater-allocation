@@ -24,7 +24,7 @@ if __name__ == "__main__":
     sect.save()
 
     groups = [1, 2, 2, 3, 3, 4, 3, 6]
-    allocation = allocator.create_allocation(sect.get_layout(), Rank.RANK_1, groups)
+    allocation = allocator.create_allocation(sect.layout, Rank.RANK_1, groups)
     Allocation(name="Championship", allocation=json.dumps(allocation), section=sect).save()
 
     allocation_json = Allocation.objects.get(section=sect).allocation

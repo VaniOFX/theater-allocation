@@ -21,13 +21,13 @@ class Section(models.Model):
 
     @classmethod
     def create(cls, name, layout):
-        cls.layout = layout
+        cls.layout_template = layout
         sect = cls(name=name)
         return sect
 
     def save(self, **kwargs):
         super().save(self, kwargs)
-        for row_num, row in enumerate(self.layout):
+        for row_num, row in enumerate(self.layout_template):
             for seq_num, tuple in enumerate(row):
                 if len(tuple) == 2:
                     seat_rank, seat_num = tuple
@@ -42,7 +42,8 @@ class Section(models.Model):
                      seat_num=seat_num,
                      section=self).save()
 
-    def get_layout(self):
+    @property
+    def layout(self):
         layout = []
         row_nums = self.seat_set.values("row_num").distinct()
         for row_dict in row_nums:
