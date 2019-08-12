@@ -1,15 +1,15 @@
-#Job Application Project
+# Job Application Project
 
-##Usage:
+## Usage:
 1. Install the project requirements <br>
 `pip install -r requrements.txt`
 3. Please refer to the [example script](seating_planner/example.py) <br>
  `python example.py`
 3. Run the server and navigate to http://localhost:8000 <br>
 `python manage.py runserver`
-##Task:
+## Task:
 
-###1. Create a datastructure that defines a seating layout for a hall in a venue:
+### 1. Create a datastructure that defines a seating layout for a hall in a venue:
 
 different sections (main hall, 1st balcony, 2nd balcony)
 different ranks defined across sections (1st rank, 2nd rank 3rd rank)
@@ -25,7 +25,7 @@ rows of seats, numbered by row, seat. Seats can be differently numbered: sometim
         frontrow seat
         high seat (e.g. on balcony)
 
-###2. Create an algorithm that given a list of "groups of users" per rank (basically sizes, e.g. (1, 3, 4, 4, 5, 1, 2, 4) in a specific order,tries to place the users in their seats, e.g.
+### 2. Create an algorithm that given a list of "groups of users" per rank (basically sizes, e.g. (1, 3, 4, 4, 5, 1, 2, 4) in a specific order,tries to place the users in their seats, e.g.
 
  1 2 2 2 3 3 3 3 <br>
  5 5 5 5 4 4 4 4 <br>
@@ -41,7 +41,7 @@ You can assume that sum(groups_of_users_for_rank) <= seats_in_that_rank
     Bonus: Allow seats to be blocked (e.g. for technical purposes). This means a group should not be split across such a block
 
 
-###3. Improve the algorithm in such a way that no individual people sit alone. In the above example this happened with the group at index 5 where a single individual sits on the 3rd row (eventhough the rest of the group is in front of him)
+### 3. Improve the algorithm in such a way that no individual people sit alone. In the above example this happened with the group at index 5 where a single individual sits on the 3rd row (eventhough the rest of the group is in front of him)
 
  1 2 2 2 3 3 3 3 <br>
  8 8 8 8 4 4 4 4 <br>
@@ -50,8 +50,8 @@ You can assume that sum(groups_of_users_for_rank) <= seats_in_that_rank
 would be a better solution. Try to preserve the order as much as possible because the lowest numbers should get the "best" (frontmost)
 seats
 
-###4. Create a django model to store the seating layout (generically) and the seating allocation. The allocation should be separate (think ofdifferent shows in the same theater)
+### 4. Create a django model to store the seating layout (generically) and the seating allocation. The allocation should be separate (think ofdifferent shows in the same theater)
 
-###5. Design / Create a REST API to retrieve the layout the allocations. Authentication / security is not a requirement (everything public)
+### 5. Design / Create a REST API to retrieve the layout the allocations. Authentication / security is not a requirement (everything public)
 
-###6. Create a simple consumer of this API that renders the allocations to a visually understandable HTML layout 
+### 6. Create a simple consumer of this API that renders the allocations to a visually understandable HTML layout 
