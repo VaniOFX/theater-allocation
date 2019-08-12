@@ -9,8 +9,15 @@ class Rank(enum.Enum):
     RANK_3 = 2
 
 
+class Extra(enum.Enum):
+    NONE = 1
+    AISLE = 2
+    FRONT_ROW = 3
+    HIGH_SEAT = 4
+
+
 class Section(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
 
     @classmethod
     def create(cls, name, layout):
@@ -21,8 +28,15 @@ class Section(models.Model):
     def save(self, **kwargs):
         super().save(self, kwargs)
         for row_num, row in enumerate(self.layout):
-            for seq_num, (seat_rank, seat_num) in enumerate(row):
+            for seq_num, tuple in enumerate(row):
+                if len(tuple) == 2:
+                    seat_rank, seat_num = tuple
+                    extra = Extra.NONE
+                else:
+                    seat_rank, seat_num, extra = tuple
+
                 Seat(rank=seat_rank,
+                     extra=extra,
                      seq_num=seq_num,
                      row_num=row_num,
                      seat_num=seat_num,
@@ -32,7 +46,7 @@ class Section(models.Model):
         layout = []
         row_nums = self.seat_set.values("row_num").distinct()
         for row_dict in row_nums:
-            layout.append(list(self.seat_set.all().filter(row_num=row_dict["row_num"])))
+            layout.append(list(self.seat_set.order_by("seq_num").filter(row_num=row_dict["row_num"])))
         return layout
 
 
@@ -41,6 +55,7 @@ class Seat(models.Model):
         unique_together = (('seat_num', 'row_num', 'section'),)
 
     rank = enum.EnumField(Rank)
+    extra = enum.EnumField(Extra)
     seq_num = models.IntegerField()
     seat_num = models.IntegerField()
     row_num = models.IntegerField()

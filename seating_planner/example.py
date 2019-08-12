@@ -17,6 +17,9 @@ if __name__ == "__main__":
         [(Rank.RANK_1, 1), (Rank.RANK_1, 2), (Rank.RANK_1, 3), (Rank.RANK_1, 4), (Rank.RANK_1, 5), (Rank.RANK_1, 6),
          (Rank.RANK_1, 7), (Rank.RANK_1, 8)]
         ]
+
+    # clean-up db (cascades all the Seat and Allocation objects too)
+    Section.objects.all().delete()
     sect = Section.create("balcony", layout)
     sect.save()
 
@@ -24,11 +27,8 @@ if __name__ == "__main__":
     allocation = allocator.create_allocation(sect.get_layout(), Rank.RANK_1, groups)
     Allocation(name="Championship", allocation=json.dumps(allocation), section=sect).save()
 
-    allocation_json = Allocation.objects.filter(section=sect)[0].allocation
+    allocation_json = Allocation.objects.get(section=sect).allocation
     allocation = json.loads(allocation_json)
 
     for row in allocation:
         print(row)
-
-    # clean-up db (cascades all the Seat and Allocation objects too)
-    Section.objects.all().delete()

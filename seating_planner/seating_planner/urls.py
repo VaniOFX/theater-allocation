@@ -19,6 +19,6 @@ from seating_planner_app.views import get_allocations, display_venues
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('allocs/', get_allocations),
-    path('', display_venues),
+    path('allocs/', get_allocations, name="allocations"),
+    path('', display_venues, name="venues"),
 ]

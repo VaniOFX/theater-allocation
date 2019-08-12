@@ -5,14 +5,17 @@ import json
 
 
 def get_allocations(request):
-    sections = Section.objects.filter(name=request.POST["selection"])
-    if len(sections) > 0:
-        sect = sections[0]
-        allocations = list(Allocation.objects.all().filter(section=sect))
-        final_alls = []
-        for a in allocations:
-            a.allocation = json.loads(a.allocation)
-            final_alls.append(vars(a))
+    section_name = request.POST.get("selection", "")
+    if section_name != "":
+        try:
+            section = Section.objects.get(name=section_name)
+            allocations = list(Allocation.objects.all().filter(section=section))
+            final_alls = []
+            for a in allocations:
+                a.allocation = json.loads(a.allocation)
+                final_alls.append(vars(a))
+        except:
+            final_alls = []
         response = {"allocations": final_alls}
     else:
         response = {"allocations": []}

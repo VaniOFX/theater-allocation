@@ -90,7 +90,10 @@ def get_perfect_fit(groups, seats_left):
 
 def get_next_row(current_row, layout):
     next_row = current_row + 1
-    # change the direction of the allocation -> and <-
-    direction = 1 if next_row % 2 == 0 else -1
-    row = layout[next_row][::direction]
+    if next_row < len(layout):
+        # change the direction of the allocation -> and <-
+        direction = 1 if next_row % 2 == 0 else -1
+        row = layout[next_row][::direction]
+    else:
+        row = []
     return row, next_row
