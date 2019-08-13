@@ -8,14 +8,29 @@ from seating_planner_app import allocator
 
 if __name__ == "__main__":
     layout = [
-        [(Rank.RANK_1, 1), (Rank.RANK_1, 2), (Rank.RANK_1, 3), (Rank.RANK_1, 4), (Rank.RANK_1, 5), (Rank.RANK_1, 6),
+
+        # sequentially numbered seats
+        [(Rank.RANK_1, 1), (Rank.RANK_1, 2),
+         (Rank.RANK_1, 3), (Rank.RANK_1, 4),
+         (Rank.RANK_1, 5), (Rank.RANK_1, 6),
          (Rank.RANK_1, 7), (Rank.RANK_1, 8)],
-        [(Rank.RANK_1, 1), (Rank.RANK_1, 2), (Rank.RANK_1, 3), (Rank.RANK_1, 4), (Rank.RANK_1, 5), (Rank.RANK_1, 6),
+
+        # non-sequentially numbered seats
+        [(Rank.RANK_1, 1), (Rank.RANK_1, 11),
+         (Rank.RANK_1, 3), (Rank.RANK_1, 33),
+         (Rank.RANK_1, 5), (Rank.RANK_1, 55),
+         (Rank.RANK_1, 7), (Rank.RANK_1, 77)],
+
+        # sequentially numbered seats
+        [(Rank.RANK_1, 1), (Rank.RANK_1, 2),
+         (Rank.RANK_1, 3), (Rank.RANK_1, 4),
+         (Rank.RANK_1, 5), (Rank.RANK_1, 6),
          (Rank.RANK_1, 7), (Rank.RANK_1, 8)],
-        [(Rank.RANK_1, 1), (Rank.RANK_1, 2), (Rank.RANK_1, 3), (Rank.RANK_1, 4), (Rank.RANK_1, 5), (Rank.RANK_1, 6),
-         (Rank.RANK_1, 7), (Rank.RANK_1, 8)],
-        [(Rank.RANK_1, 1), (Rank.RANK_1, 2), (Rank.RANK_1, 3), (Rank.RANK_1, 4), (Rank.RANK_1, 5), (Rank.RANK_1, 6),
-         (Rank.RANK_1, 7), (Rank.RANK_1, 8)]
+
+        # sequentially numbered seats
+        [(Rank.RANK_1, 1), (Rank.RANK_1, 2),
+         (Rank.RANK_1, 3), (Rank.RANK_1, 4),
+         (Rank.RANK_1, 5), (Rank.RANK_1, 6)],
         ]
 
     # clean-up db (cascades all the Seat and Allocation objects too)
@@ -23,7 +38,7 @@ if __name__ == "__main__":
     sect = Section.create("balcony", layout)
     sect.save()
 
-    groups = [1, 2, 2, 3, 3, 4, 3, 6]
+    groups = [1, 3, 4, 4, 5, 1, 2, 4]
     allocation = allocator.create_allocation(sect.layout, Rank.RANK_1, groups)
     Allocation(name="Championship", allocation=json.dumps(allocation), section=sect).save()
 

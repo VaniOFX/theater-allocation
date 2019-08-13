@@ -41,10 +41,11 @@ def create_allocation(seats_layout, rank, groups):
             # allocate the next seat
             curr_seat = curr_row[curr_seat_id]
             if curr_seat.rank == rank:
-                allocation[curr_row_id][curr_seat_id] = curr_group_num
+                allocation[curr_row_id][curr_seat_id] = curr_group_num + 1
             curr_seat_id += 1
             looping_indicator = False
 
+    # reverse every other row of the allocation
     for i, row in enumerate(allocation):
         allocation[i] = row[::-1] if i % 2 != 0 else row
 
