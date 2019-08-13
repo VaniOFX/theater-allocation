@@ -1,5 +1,6 @@
 import os
 import django
+from django.core import management
 import json
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'seating_planner.settings')
 django.setup()
@@ -31,19 +32,21 @@ if __name__ == "__main__":
         [(Rank.RANK_1, 1), (Rank.RANK_1, 2),
          (Rank.RANK_1, 3), (Rank.RANK_1, 4),
          (Rank.RANK_1, 5), (Rank.RANK_1, 6)],
-        ]
+    ]
 
     # clean-up db (cascades all the Seat and Allocation objects too)
     Section.objects.all().delete()
     sect = Section.create("balcony", layout)
     sect.save()
 
-    groups = [1, 3, 4, 4, 5, 1, 2, 4]
-    allocation = allocator.create_allocation(sect.layout, Rank.RANK_1, groups)
-    Allocation(name="Championship", allocation=json.dumps(allocation), section=sect).save()
+    groups = [
+        [1, 3, 4, 4, 5, 1, 2, 4],
+        [3, 3, 3, 2, 5, 5, 3, 6]
+    ]
 
-    allocation_json = Allocation.objects.get(section=sect).allocation
-    allocation = json.loads(allocation_json)
+    for i, group in enumerate(groups):
+        allocation = allocator.create_allocation(sect.layout, Rank.RANK_1, group)
+        Allocation(name=f"Concert {i}", allocation=json.dumps(allocation), section=sect).save()
 
-    for row in allocation:
-        print(row)
+    management.call_command('test')
+    management.call_command('runserver')

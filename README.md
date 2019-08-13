@@ -3,10 +3,11 @@
 ## Usage:
 1. Install the project requirements <br>
 `pip install -r requrements.txt`
-3. Please refer to the [example script](seating_planner/example.py) <br>
+3. Run the [example script](seating_planner/example.py) <br>
+ `cd seating_planner` <br>
  `python example.py`
-3. Run the server and navigate to http://localhost:8000 <br>
-`python manage.py runserver`
+3. Navigate to http://localhost:8000 and check the results out
+
 ## Task:
 
 ### 1. Create a datastructure that defines a seating layout for a hall in a venue:
